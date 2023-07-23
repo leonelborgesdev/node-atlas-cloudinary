@@ -1,4 +1,7 @@
 import Product from "../models/products.model.js";
+import { deleteImage, uploadImage } from "../utils/cloudinary.js";
+import fileupload from "express-fileupload";
+import fs from "fs-extra";
 
 export const getProducts = async (req, res) => {
   try {
@@ -11,11 +14,21 @@ export const getProducts = async (req, res) => {
 export const createProduct = async (req, res) => {
   try {
     const { name, description, price } = req.body;
+
     const product = new Product({
       name,
       description,
       price,
     });
+
+    if (req.files?.image) {
+      const result = await uploadImage(req.files.image.tempFilePath);
+      product.image = {
+        public_id: result.public_id,
+        secure_url: result.secure_url,
+      };
+      await fs.unlink(req.files.image.tempFilePath);
+    }
     await product.save();
     return res.json(product);
   } catch (error) {
@@ -38,6 +51,11 @@ export const getProductById = async (req, res) => {
     if (!product) {
       return res.status(404).json({ message: "Product does not exists" });
     }
+
+    if (product.image?.public_id) {
+      await deleteImage(product.image.public_id);
+    }
+
     return res.json(product);
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -55,4 +73,12 @@ export const updateProduct = async (req, res) => {
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
+};
+
+export const fileuploadcreate = (req, res, next) => {
+  fileupload({
+    useTempFiles: true,
+    tempFileDir: "./uploads",
+  });
+  next();
 };
