@@ -3,6 +3,7 @@ import morgan from "morgan";
 import { conectToDb } from "./utils/mongoose.js";
 
 const app = express();
+conectToDb();
 
 app.use(morgan("dev"));
 app.get("/", (req, res) => res.send("Hola mundo2"));
