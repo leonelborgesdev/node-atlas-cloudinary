@@ -1,12 +1,9 @@
-import express from "express";
-import morgan from "morgan";
+import app from "./app.js";
 import { conectToDb } from "./utils/mongoose.js";
 
-const app = express();
-conectToDb();
-
-app.use(morgan("dev"));
-app.get("/", (req, res) => res.send("Hola mundo2"));
-
-app.listen(3000);
-console.log("Server is running on port", 3000);
+async function main() {
+  await conectToDb();
+  app.listen(3000);
+  console.log("Server is running on port", 3000);
+}
+main();
