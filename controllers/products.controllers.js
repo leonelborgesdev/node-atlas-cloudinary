@@ -1,6 +1,5 @@
 import Product from "../models/products.model.js";
 import { deleteImage, uploadImage } from "../utils/cloudinary.js";
-import fileupload from "express-fileupload";
 import fs from "fs-extra";
 
 export const getProducts = async (req, res) => {
@@ -20,8 +19,9 @@ export const createProduct = async (req, res) => {
       description,
       price,
     });
-
+    console.log(req.body);
     if (req.files?.image) {
+      console.log(req.files);
       const result = await uploadImage(req.files.image.tempFilePath);
       product.image = {
         public_id: result.public_id,
@@ -76,9 +76,5 @@ export const updateProduct = async (req, res) => {
 };
 
 export const fileuploadcreate = (req, res, next) => {
-  fileupload({
-    useTempFiles: true,
-    tempFileDir: "./uploads",
-  });
   next();
 };

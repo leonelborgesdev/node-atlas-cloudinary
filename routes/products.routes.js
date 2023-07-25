@@ -2,16 +2,23 @@ import { Router } from "express";
 import {
   createProduct,
   deleteProduct,
-  fileuploadcreate,
   getProductById,
   getProducts,
   updateProduct,
 } from "../controllers/products.controllers.js";
+import fileupload from "express-fileupload";
 const router = Router();
 
 router.get("/products", getProducts);
 
-router.post("/products", fileuploadcreate, createProduct);
+router.post(
+  "/products",
+  fileupload({
+    useTempFiles: true,
+    tempFileDir: "./uploads",
+  }),
+  createProduct
+);
 router.get("/products/:id", getProductById);
 router.put("/products/:id", updateProduct);
 router.delete("/products/:id", deleteProduct);
