@@ -12,3 +12,16 @@ export const getUserById = async (req, res) => {
     return res.status(500).json({ message: error });
   }
 };
+
+export const createUser = async (req, res) => {
+  try {
+    const { name, email, username } = req.body;
+    const user = new User({
+      name,
+      email,
+      username,
+    });
+    await user.save();
+    return res.json(user);
+  } catch (error) {}
+};

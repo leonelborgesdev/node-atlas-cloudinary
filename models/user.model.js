@@ -14,7 +14,7 @@ const userSchema = mongoose.Schema(
       trim: true,
       unique: true,
     },
-    user: {
+    username: {
       type: String,
       require: true,
       trim: true,
