@@ -23,5 +23,7 @@ export const createUser = async (req, res) => {
     });
     await user.save();
     return res.json(user);
-  } catch (error) {}
+  } catch (error) {
+    return res.status(500).json({ message: error });
+  }
 };
