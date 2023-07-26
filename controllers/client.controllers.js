@@ -1,9 +1,9 @@
-import Client from "../models/client.model";
+import Client from "../models/client.model.js";
 
-export const getClientById = (req, res) => {
+export const getClientById = async (req, res) => {
   try {
     const { id } = req.params;
-    const client = Client.findById(id);
+    const client = await Client.findById(id);
 
     return res.json(client);
   } catch (error) {
