@@ -3,4 +3,6 @@ import { createItemProduct } from "../controllers/itemProduct.controllers.js";
 
 const router = Router();
 
-router.use("itemProdut", createItemProduct);
+router.post("/itemProduct", createItemProduct);
+
+export default router;
