@@ -21,7 +21,10 @@ const productSchema = mongoose.Schema(
       secure_url: String,
     },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    versionKey: false,
+  }
 );
 
 export default mongoose.model("Product", productSchema);
