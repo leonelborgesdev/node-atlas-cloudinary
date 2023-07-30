@@ -22,3 +22,5 @@ const saleSchena = new mongoose.Schema(
     versionKey: false,
   }
 );
+
+export default mongoose.model("Sale", saleSchena);
