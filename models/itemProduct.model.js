@@ -1,15 +1,12 @@
-import mongoose from "mongoose";
+import { Schema, model } from "mongoose";
 
-const itemProductShema = new mongoose.Schema(
+const itemProductShema = new Schema(
   {
-    amount: {
-      type: Number,
-    },
-    price: {
-      type: Number,
-    },
+    amount: Number,
+    price: Number,
     idProduct: {
-      type: String,
+      ref: "Product",
+      type: Schema.ObjectId,
     },
   },
   {
@@ -18,4 +15,4 @@ const itemProductShema = new mongoose.Schema(
   }
 );
 
-export default mongoose.model("ItemProduct", itemProductShema);
+export default model("ItemProduct", itemProductShema);

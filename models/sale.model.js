@@ -12,12 +12,12 @@ const saleSchena = new Schema(
     },
     idClient: {
       ref: "Client",
-      type: Schema.Types.ObjectId,
+      type: Schema.ObjectId,
     },
     itemProducts: [
       {
         ref: "ItemProduct",
-        type: Schema.Types.ObjectId,
+        type: Schema.ObjectId,
       },
     ],
   },
