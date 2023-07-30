@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
+import { Schema, model } from "mongoose";
 
-const saleSchena = new mongoose.Schema(
+const saleSchena = new Schema(
   {
     total: {
       type: Number,
@@ -11,11 +11,15 @@ const saleSchena = new mongoose.Schema(
       default: 0,
     },
     idClient: {
-      type: String,
-      require: true,
-      trim: true,
-      unique: true,
+      ref: "Client",
+      type: Schema.Types.ObjectId,
     },
+    itemProducts: [
+      {
+        ref: "ItemProduct",
+        type: Schema.Types.ObjectId,
+      },
+    ],
   },
   {
     timestamps: true,
@@ -23,4 +27,4 @@ const saleSchena = new mongoose.Schema(
   }
 );
 
-export default mongoose.model("Sale", saleSchena);
+export default model("Sale", saleSchena);
