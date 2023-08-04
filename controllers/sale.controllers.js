@@ -3,6 +3,7 @@ import Sale from "../models/sale.model.js";
 export const getSales = async (req, res) => {
   try {
     const sales = await Sale.find().populate("itemProducts");
+
     return res.json(sales);
   } catch (error) {
     console.log(error);
@@ -16,7 +17,7 @@ export const createSale = async (req, res) => {
     const sale = new Sale({
       total,
       discount,
-      //   idClient,
+      idClient,
       itemProducts,
     });
     await sale.save();
